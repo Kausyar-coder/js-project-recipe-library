@@ -1,0 +1,9 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+body {
+  font-family: "montserrat", sans-serif;
+  line-height: 1.7;
+  color: var(--color-font);
+  font-size: 1.6rem;
+}

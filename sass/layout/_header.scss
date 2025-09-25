@@ -1,0 +1,110 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+
+  @include respond-max(22.875em) {
+    //789px
+    gap: 5px;
+  }
+
+  &__search-form {
+    display: flex;
+    position: relative;
+    flex: 1;
+
+    @include respond-max(22.875em) {
+      //789px
+      flex: unset;
+      width: 200px;
+    }
+  }
+
+  &__icon {
+    position: absolute;
+    top: 50%;
+    left: 1rem;
+    transform: translateY(-50%);
+    color: #adb5bd;
+    width: 2rem;
+  }
+
+  &__input {
+    border: 1px solid #e9ecef;
+    background-color: #e9ecef;
+    padding: 1.4rem;
+    flex: 1;
+    border-radius: 0.8rem;
+    padding-left: 4rem;
+
+    @include respond-max(22.875em) {
+      //789px
+      flex: unset;
+      width: 100%;
+    }
+  }
+
+  &__input::placeholder {
+    color: #adb5bd;
+    font-family: "montserrat", sans-serif;
+  }
+
+  &__input:focus {
+    outline: none;
+    border-color: #e9ecef;
+    background-color: #f8f9fa;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    @include respond-max(48.75em) {
+      //789px
+      display: none;
+    }
+  }
+
+  &__favorate {
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: #adb5bd;
+    border-radius: 0.8rem;
+  }
+  &__mood {
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: #adb5bd;
+    border-radius: 0.8rem;
+  }
+  &__avatar {
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: #adb5bd;
+    border-radius: 0.8rem;
+  }
+}
+
+.mobile-menue {
+  display: none;
+  @include respond-max(48.75em) {
+    //789px
+    display: inline-block;
+  }
+
+  &__icon {
+    width: 5rem;
+    height: 5rem;
+    background-color: #adb5bd;
+    border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+  }
+}

@@ -1,0 +1,17 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+
+  @include respond(tab-port) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  &__card {
+    background-color: #adb5bd;
+    border-radius: 1rem;
+  }
+}

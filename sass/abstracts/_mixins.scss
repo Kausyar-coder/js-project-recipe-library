@@ -1,0 +1,89 @@
+@use "../abstracts/variables" as *;
+/* ------------------------------------------------------
+   MEDIA QUERY MANAGER
+   ------------------------------------------------------
+   
+   Брейкпоинты (по ширине экрана):
+
+   0 - 320px: Extra small (мини-телефоны)
+   0 - 600px: Phone
+   600px - 900px: Tablet portrait
+   900px - 1200px: Tablet landscape
+   1200px - 1800px:  Desktop (базовый дизайн) is where our normal style apply 
+   1800px + : Big desktop
+
+  
+
+   $breakpoint argument choices:
+   - xs-phone
+   - phone
+   - tab-port
+   - tab-land
+   - desktop
+   - big-desktop
+
+   1em = 16px
+------------------------------------------------------ */
+
+@mixin respond($breakpoint) {
+  // Extra small: ≤ 320px
+  @if $breakpoint == xs-phone {
+    @media only screen and (max-width: 20em) {
+      // 320px / 16px = 20em
+      @content;
+    }
+  }
+
+  // Phone: ≤ 600px
+  @if $breakpoint == phone {
+    @media only screen and (max-width: 37.5em) {
+      // 600px / 16px = 37.5em
+      @content;
+    }
+  }
+
+  // Tablet portrait: ≤ 900px
+  @if $breakpoint == tab-port {
+    @media only screen and (max-width: 56.25em) {
+      // 900px / 16px = 56.25em
+      @content;
+    }
+  }
+
+  // Tablet landscape: ≤ 1200px
+  @if $breakpoint == tab-land {
+    @media only screen and (max-width: 75em) {
+      // 1200px / 16px = 75em
+      @content;
+    }
+  }
+
+  // Big desktop: ≥ 1800px
+  @if $breakpoint == big-desktop {
+    @media only screen and (min-width: 112.5em) {
+      // 1800px / 16px = 112.5em
+      @content;
+    }
+  }
+}
+
+// 📌 ширина между (чило ниже - чило выше)
+@mixin respond-between($min, $max) {
+  @media only screen and (min-width: $min) and (max-width: $max) {
+    @content;
+  }
+}
+
+// 📌 Минимальная ширина (от числа и выше)
+@mixin respond-min($min) {
+  @media (min-width: $min) {
+    @content;
+  }
+}
+
+// 📌 Максимальная ширина (до числа и ниже)
+@mixin respond-max($max) {
+  @media (max-width: $max) {
+    @content;
+  }
+}

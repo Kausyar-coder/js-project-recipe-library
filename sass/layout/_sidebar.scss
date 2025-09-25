@@ -1,0 +1,127 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.sidebar {
+  &__desktop {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5rem;
+    margin-left: -1rem;
+
+    @include respond(tab-land) {
+      display: none;
+    }
+  }
+
+  &__logo {
+    height: 6rem;
+    width: 6rem;
+    border-radius: 50%;
+    background-color: #f8f9fa;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-weight: 700;
+    font-size: 1.8rem;
+    text-align: center;
+  }
+  &__subtitle {
+    font-size: 1.4rem;
+    text-align: center;
+  }
+  &__socialbox {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+
+  &__iconbox {
+    background-color: #f8f9fa;
+    height: 3rem;
+    width: 3rem;
+    border-radius: 50%;
+  }
+
+  &__menu {
+    align-self: flex-start;
+    padding-left: 5rem;
+  }
+
+  &__menu-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  &__menu-item,
+  &__submenu-item {
+    list-style: none;
+  }
+
+  &__menu-link {
+    text-decoration: none;
+    color: var(--color-font);
+    font-weight: 500;
+    font-size: 1.8rem;
+  }
+
+  &__submenu-link {
+    text-decoration: none;
+    color: var(--color-font);
+    font-size: 1.6rem;
+  }
+}
+
+.sidebar {
+  &__mobile {
+    display: none;
+
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    margin-left: -1rem;
+
+    @include respond(tab-land) {
+      display: flex;
+    }
+  }
+
+  &__logo-short {
+    height: 4rem;
+    width: 4rem;
+    border-radius: 0.8rem;
+    background-color: #f8f9fa;
+    margin-bottom: -22rem;
+  }
+
+  &__icons {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__icon-short {
+    background-color: #f8f9fa;
+    color: #adb5bd;
+    border-radius: 0.8rem;
+    width: 4rem;
+    height: 4rem;
+    padding: 1rem;
+  }
+
+  &__socialbox-short {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  &__iconbox-short {
+    background-color: #f8f9fa;
+    border-radius: 0.8rem;
+    width: 4rem;
+    height: 4rem;
+  }
+}

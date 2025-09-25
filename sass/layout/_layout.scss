@@ -1,0 +1,91 @@
+@use "../abstracts/variables" as *;
+@use "../abstracts/mixins" as *;
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  margin: 3rem;
+  border-radius: 2rem;
+  height: 92vh;
+  overflow: hidden;
+}
+
+.middlebox {
+  display: flex;
+  align-items: center;
+  background-color: #adb5bd;
+  height: 100%;
+  padding: 1rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 15%;
+  height: 100%;
+
+  @include respond(tab-land) {
+    flex: 0 0 5%;
+  }
+
+  @include respond-max(48.75em) {
+    //789px
+    display: none;
+  }
+}
+
+.content {
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.header {
+  flex: 0 0 8%;
+  margin: 1.5rem;
+}
+
+.filter {
+  flex: 0 0 8%;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.cards {
+  flex: 3;
+  height: 100%;
+
+  @include respond(tab-port) {
+    flex: 2;
+  }
+
+  @include respond(phone) {
+    flex: 1;
+  }
+}
+
+.recept {
+  flex: 1;
+  height: 100%;
+
+  @include respond(phone) {
+    display: none;
+  }
+}
+
+.footer {
+  background-color: greenyellow;
+}

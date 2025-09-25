@@ -3,7 +3,214 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Yor favorate drink</title>
   </head>
-  <body></body>
+  <body>
+    <div class="box">
+      <main class="middlebox">
+        <div class="sidebar">
+          <div class="sidebar__desktop">
+            <div class="sidebar__logo"></div>
+            <div class="sidebar__title">Perfect drink</div>
+            <div class="sidebar__subtitle">
+              Discover your favorite <br />drink recipe today
+            </div>
+            <div class="sidebar__socialbox">
+              <div class="sidebar__iconbox"></div>
+              <div class="sidebar__iconbox"></div>
+              <div class="sidebar__iconbox"></div>
+            </div>
+            <nav class="sidebar__menu">
+              <ul class="sidebar__menu-list">
+                <!-- Drinks -->
+                <li class="sidebar__menu-item">
+                  <a href="#" class="sidebar__menu-link">Drinks</a>
+                  <ul class="sidebar__submenu">
+                    <li class="sidebar__submenu-item">
+                      <a class="sidebar__submenu-link" href="#">Tea</a>
+                    </li>
+                    <li class="sidebar__submenu-item">
+                      <a class="sidebar__submenu-link" href="#">Coffee</a>
+                    </li>
+                    <li class="sidebar__submenu-item">
+                      <a class="sidebar__submenu-link" href="#">Juices</a>
+                    </li>
+                  </ul>
+                </li>
+
+                <!-- Favorites -->
+                <li class="sidebar__menu-item">
+                  <a href="#" class="sidebar__menu-link">Favorites</a>
+                </li>
+
+                <!-- Settings -->
+                <li class="sidebar__menu-item">
+                  <a href="#" class="sidebar__menu-link">Settings</a>
+
+                  <ul class="sidebar__submenu">
+                    <li class="sidebar__submenu-item">
+                      <a class="sidebar__submenu-link" href="#">English</a>
+                    </li>
+                    <li class="sidebar__submenu-item">
+                      <a class="sidebar__submenu-link" href="#">Arabic</a>
+                    </li>
+                    <li class="sidebar__submenu-item">
+                      <a class="sidebar__submenu-link" href="#">Russian</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="sidebar__mobile">
+            <div class="sidebar__logo-short"></div>
+            <div class="sidebar__icons">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="sidebar__icon-short"
+              >
+                <path d="M10 2v2" />
+                <path d="M14 2v2" />
+                <path
+                  d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"
+                />
+                <path d="M6 2v2" />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="sidebar__icon-short"
+              >
+                <path
+                  d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+                />
+              </svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="sidebar__icon-short"
+              >
+                <path
+                  d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915"
+                />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+            </div>
+            <div class="sidebar__socialbox-short">
+              <div class="sidebar__iconbox-short"></div>
+              <div class="sidebar__iconbox-short"></div>
+              <div class="sidebar__iconbox-short"></div>
+            </div>
+          </div>
+        </div>
+        <div class="content">
+          <header class="header">
+            <form class="header__search-form" id="search-form">
+              <input
+                class="header__input"
+                type="text"
+                id="search"
+                placeholder="Favorite drink..."
+              />
+              <!-- Иконка слева -->
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="header__icon"
+              >
+                <path d="m21 21-4.34-4.34" />
+                <circle cx="11" cy="11" r="8" />
+              </svg>
+            </form>
+            <div class="header__info">
+              <div class="header__favorate"></div>
+              <div class="header__mood"></div>
+              <div class="header__avatar"></div>
+            </div>
+            <div class="mobile-menue">
+              <div class="mobile-menue__icon">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  class="lucide lucide-menu-icon lucide-menu"
+                >
+                  <path d="M4 5h16" />
+                  <path d="M4 12h16" />
+                  <path d="M4 19h16" />
+                </svg>
+              </div>
+            </div>
+          </header>
+
+          <div class="filter">
+            <div class="filter__item">filter</div>
+            <div class="filter__item">filter</div>
+            <div class="filter__item">filter</div>
+            <div class="filter__item">filter</div>
+            <div class="filter__item">filter</div>
+            <div class="filter__item">filter</div>
+            <div class="filter__item">filter</div>
+            <div class="filter__item">filter</div>
+          </div>
+          <div class="main">
+            <div class="cards">
+              <div class="cards__card">card</div>
+              <div class="cards__card">card</div>
+              <div class="cards__card">card</div>
+              <div class="cards__card">card</div>
+              <div class="cards__card">card</div>
+              <div class="cards__card">card</div>
+            </div>
+            <div class="recept">
+              <div class="recept__card"></div>
+            </div>
+          </div>
+          <!-- <footer class="footer">footer</footer> -->
+        </div>
+      </main>
+    </div>
+  </body>
 </html>

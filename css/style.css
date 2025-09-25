@@ -1,3 +1,491 @@
+@charset "UTF-8";
+/* ------------------------------------------------------
+  | THEME VARIABLES: базовые (light) ☀️
+  ------------------------------------------------------ */
+:root {
+  --color-primary-light: #f2f3ef;
+  --color-primary: #8d9271;
+  --color-white: #ffffff;
+  --color-white-base: #ffffff;
+  --color-grey-light-1: #f8f9fa;
+  --color-grey-light-2: #e9ecef;
+  --color-grey-light-3: #dee2e6;
+  --color-grey-light-4: #ced4da;
+  --color-grey-dark: #868e96;
+  --color-grey-dark-base: #868e96;
+  --color-font: #212529;
+  --color-font-base: #212529;
+  --color-button: #8d9271;
+  --color-black: #000000;
+  --color-blue: #176d8c;
+  --border-radius-xxs: 0.5rem;
+  --border-radius-xs: 1rem;
+  --border-radius-sm: 1.5rem;
+  --border-radius-md: 2rem;
+  --border-radius-lg: 2.5rem;
+  --border-radius-xl: 3rem;
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  --box-shadow-green: 0 0.5rem 1rem #8d92717d;
+}
 
+/* ------------------------------------------------------
+  | THEME VARIABLES: dark mode 🌙
+  ------------------------------------------------------ */
+:root[data-theme=dark] {
+  --color-primary-light: #252525;
+  --color-primary: #8d9271;
+  --color-white: #424242;
+  --color-grey-dark: #adb5bd;
+  --color-font: #ffffff;
+}
+
+/* -------------------------------
+  |  1️⃣ GRID FOR BASE DESKTOP 1️⃣ |
+  ------------------------------- */
+/* ---------------------------------------------
+  |  2️⃣ GRID FOR Tablet landscape: ≤ 1200px 2️⃣ |
+  -------------------------------------------- */
+/* ---------------------------------------------
+  |  3️⃣ GRID FOR Tablet portrait: ≤ 900px 3️⃣ |
+  -------------------------------------------- */
+/* ---------------------------------------
+  |  4️⃣ Phone: ≤ 600px ГОРИЗОНТАЛЬНАЯ 4️⃣ |
+  -------------------------------------- */
+/* -------------------------------------
+  |  5️⃣ Extra small phone: ≤ 320px 5️⃣ |
+  ------------------------------------ */
+/* 
+
+ПЕРЕКЛЮЧЕНИЯ МЕЖДУ КАРТОЧКАМИ
+
+class= "btn-method"
+
+1. Пассивный доход от аренды --> data-method="rent"
+2. Доход от перепродажи --> data-method="resale"
+3. Доход от «Золотого якоря» --> data-method="golden-anchor"
+
+ПЕРЕКЛЮЧЕНИЯ МЕЖДУ ГОРОДАМИ
+
+class= "btn-city"
+
+1. Все города --> data-city="all"
+2. Дубай --> data-city="dubai"
+3. Абу-Даби --> data-city="abu-dabi"
+4. Шарджа --> data-city="sharjah"
+5. Аджман --> data-city="ajman"
+6. Фуджейра --> data-city="fujairah"
+
+ЧТО ПИСАТЬ В САМИ КАРТОЧКИ
+
+data-id="card-invest-1" ПИСАТЬ ЧИСЛА ПО ПОРЯДКУ
+data-city="dubai"
+data-method="rent
+
+*/
+/* ------------------------------------------------------
+   MEDIA QUERY MANAGER
+   ------------------------------------------------------
+
+   Брейкпоинты (по ширине экрана):
+
+   0 - 320px: Extra small (мини-телефоны)
+   0 - 600px: Phone
+   600px - 900px: Tablet portrait
+   900px - 1200px: Tablet landscape
+   1200px - 1800px:  Desktop (базовый дизайн) is where our normal style apply 
+   1800px + : Big desktop
+
+
+
+   $breakpoint argument choices:
+   - xs-phone
+   - phone
+   - tab-port
+   - tab-land
+   - desktop
+   - big-desktop
+
+   1em = 16px
+------------------------------------------------------ */
+body {
+  font-family: "montserrat", sans-serif;
+  line-height: 1.7;
+  color: var(--color-font);
+  font-size: 1.6rem;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+@media only screen and (max-width: 56.25em) {
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+.cards__card {
+  background-color: #adb5bd;
+  border-radius: 1rem;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+@media only screen and (min-width: 112.5em) {
+  html {
+    font-size: 75%;
+  }
+}
+@media only screen and (max-width: 75em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media only screen and (max-width: 56.25em) {
+  html {
+    font-size: 56.25%;
+  }
+}
+@media only screen and (max-width: 20em) {
+  html {
+    font-size: 50%;
+  }
+}
+
+body {
+  box-sizing: border-box;
+  background-color: #f8f9fa;
+  margin: 0 auto;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: stretch;
+  margin: 3rem;
+  border-radius: 2rem;
+  height: 92vh;
+  overflow: hidden;
+}
+
+.middlebox {
+  display: flex;
+  align-items: center;
+  background-color: #adb5bd;
+  height: 100%;
+  padding: 1rem;
+}
+
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 15%;
+  height: 100%;
+}
+@media only screen and (max-width: 75em) {
+  .sidebar {
+    flex: 0 0 5%;
+  }
+}
+@media (max-width: 48.75em) {
+  .sidebar {
+    display: none;
+  }
+}
+
+.content {
+  background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.header {
+  flex: 0 0 8%;
+  margin: 1.5rem;
+}
+
+.filter {
+  flex: 0 0 8%;
+}
+
+.main {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 1.5rem;
+  gap: 1.5rem;
+  height: 100%;
+}
+
+.cards {
+  flex: 3;
+  height: 100%;
+}
+@media only screen and (max-width: 56.25em) {
+  .cards {
+    flex: 2;
+  }
+}
+@media only screen and (max-width: 37.5em) {
+  .cards {
+    flex: 1;
+  }
+}
+
+.recept {
+  flex: 1;
+  height: 100%;
+}
+@media only screen and (max-width: 37.5em) {
+  .recept {
+    display: none;
+  }
+}
+
+.footer {
+  background-color: greenyellow;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  padding: 1.5rem;
+}
+.filter__item {
+  background-color: #adb5bd;
+  border-radius: 0.8rem;
+  padding: 0.5rem 3rem;
+}
+
+.sidebar__desktop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5rem;
+  margin-left: -1rem;
+}
+@media only screen and (max-width: 75em) {
+  .sidebar__desktop {
+    display: none;
+  }
+}
+.sidebar__logo {
+  height: 6rem;
+  width: 6rem;
+  border-radius: 50%;
+  background-color: #f8f9fa;
+  margin-bottom: 1rem;
+}
+.sidebar__title {
+  font-weight: 700;
+  font-size: 1.8rem;
+  text-align: center;
+}
+.sidebar__subtitle {
+  font-size: 1.4rem;
+  text-align: center;
+}
+.sidebar__socialbox {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+.sidebar__iconbox {
+  background-color: #f8f9fa;
+  height: 3rem;
+  width: 3rem;
+  border-radius: 50%;
+}
+.sidebar__menu {
+  align-self: flex-start;
+  padding-left: 5rem;
+}
+.sidebar__menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+.sidebar__menu-item, .sidebar__submenu-item {
+  list-style: none;
+}
+.sidebar__menu-link {
+  text-decoration: none;
+  color: var(--color-font);
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+.sidebar__submenu-link {
+  text-decoration: none;
+  color: var(--color-font);
+  font-size: 1.6rem;
+}
+
+.sidebar__mobile {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  margin-left: -1rem;
+}
+@media only screen and (max-width: 75em) {
+  .sidebar__mobile {
+    display: flex;
+  }
+}
+.sidebar__logo-short {
+  height: 4rem;
+  width: 4rem;
+  border-radius: 0.8rem;
+  background-color: #f8f9fa;
+  margin-bottom: -22rem;
+}
+.sidebar__icons {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.sidebar__icon-short {
+  background-color: #f8f9fa;
+  color: #adb5bd;
+  border-radius: 0.8rem;
+  width: 4rem;
+  height: 4rem;
+  padding: 1rem;
+}
+.sidebar__socialbox-short {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.sidebar__iconbox-short {
+  background-color: #f8f9fa;
+  border-radius: 0.8rem;
+  width: 4rem;
+  height: 4rem;
+}
+
+.recept__card {
+  background-color: #adb5bd;
+  border-radius: 1rem;
+  width: 100%;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+@media (max-width: 22.875em) {
+  .header {
+    gap: 5px;
+  }
+}
+.header__search-form {
+  display: flex;
+  position: relative;
+  flex: 1;
+}
+@media (max-width: 22.875em) {
+  .header__search-form {
+    flex: unset;
+    width: 200px;
+  }
+}
+.header__icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #adb5bd;
+  width: 2rem;
+}
+.header__input {
+  border: 1px solid #e9ecef;
+  background-color: #e9ecef;
+  padding: 1.4rem;
+  flex: 1;
+  border-radius: 0.8rem;
+  padding-left: 4rem;
+}
+@media (max-width: 22.875em) {
+  .header__input {
+    flex: unset;
+    width: 100%;
+  }
+}
+.header__input::placeholder {
+  color: #adb5bd;
+  font-family: "montserrat", sans-serif;
+}
+.header__input:focus {
+  outline: none;
+  border-color: #e9ecef;
+  background-color: #f8f9fa;
+}
+.header__info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+@media (max-width: 48.75em) {
+  .header__info {
+    display: none;
+  }
+}
+.header__favorate {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: #adb5bd;
+  border-radius: 0.8rem;
+}
+.header__mood {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: #adb5bd;
+  border-radius: 0.8rem;
+}
+.header__avatar {
+  width: 4.5rem;
+  height: 4.5rem;
+  background-color: #adb5bd;
+  border-radius: 0.8rem;
+}
+
+.mobile-menue {
+  display: none;
+}
+@media (max-width: 48.75em) {
+  .mobile-menue {
+    display: inline-block;
+  }
+}
+.mobile-menue__icon {
+  width: 5rem;
+  height: 5rem;
+  background-color: #adb5bd;
+  border-radius: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
 
 /*# sourceMappingURL=style.css.map */

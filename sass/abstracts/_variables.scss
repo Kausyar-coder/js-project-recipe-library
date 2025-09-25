@@ -1,0 +1,138 @@
+/* ------------------------------------------------------
+  | THEME VARIABLES: базовые (light) ☀️
+  ------------------------------------------------------ */
+
+:root {
+  // COLORS
+  // PRIMARY
+  --color-primary-light: #f2f3ef; // DARK MOODE TO #252525
+  --color-primary: #8d9271;
+
+  //GREY
+  --color-white: #ffffff; // DARK MOODE TO #424242
+  --color-white-base: #ffffff;
+
+  --color-grey-light-1: #f8f9fa;
+  --color-grey-light-2: #e9ecef;
+  --color-grey-light-3: #dee2e6;
+  --color-grey-light-4: #ced4da;
+
+  --color-grey-dark: #868e96; // DARK MOODE TO #adb5bd
+  --color-grey-dark-base: #868e96;
+
+  --color-font: #212529; // DARK MOODE TO #ffff
+  --color-font-base: #212529;
+
+  --color-button: #8d9271;
+  --color-black: #000000;
+
+  //BLUE
+  --color-blue: #176d8c;
+
+  //BORDER RADIUS
+  --border-radius-xxs: 0.5rem; // 5px
+  --border-radius-xs: 1rem; // 10px
+  --border-radius-sm: 1.5rem; // 15px
+  --border-radius-md: 2rem; // 20px
+  --border-radius-lg: 2.5rem; // 25px
+  --border-radius-xl: 3rem; // 30px
+
+  //BOX SHADOW
+
+  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
+  --box-shadow-green: 0 0.5rem 1rem #8d92717d;
+}
+
+/* ------------------------------------------------------
+  | THEME VARIABLES: dark mode 🌙
+  ------------------------------------------------------ */
+
+:root[data-theme="dark"] {
+  // COLORS
+  // PRIMARY
+  --color-primary-light: #252525;
+  --color-primary: #8d9271;
+
+  //GREY
+  --color-white: #424242;
+
+  --color-grey-dark: #adb5bd;
+  --color-font: #ffffff;
+}
+
+/* -------------------------------
+  |  1️⃣ GRID FOR BASE DESKTOP 1️⃣ |
+  ------------------------------- */
+
+$grid-header-width: 140rem; // меню и главный блок
+$grid-choose-option-width: 104rem; // меню и главный блок
+$grid-arrows-width: 120rem; // кнопки слева и справа
+$grid-main-container-width: 100rem; // основная сетка
+
+$gutter-horizontal-big: 10rem; //отступы между блоками
+$gutter-horizontal-medium: 5rem; //отступы между блоками
+$gutter-horizontal-small: 3rem; //отступы между блоками
+$row-gap: 2rem; //между карточками
+
+/* ---------------------------------------------
+  |  2️⃣ GRID FOR Tablet landscape: ≤ 1200px 2️⃣ |
+  -------------------------------------------- */
+
+$grid-header-tablet-landscape-width: 120rem; // меню и главный блок
+$grid-choose-option-tablet-landscape-width: 100rem; // меню и главный блок
+$grid-arrows-tablet-landscape-width: 120rem; // кнопки слева и справа
+$grid-main-container-tablet-landscape-width: 100rem; // основная сетка
+
+/* ---------------------------------------------
+  |  3️⃣ GRID FOR Tablet portrait: ≤ 900px 3️⃣ |
+  -------------------------------------------- */
+
+$grid-header-tab-port-width: 100rem; // меню и главный блок
+$grid-choose-option-tab-port-width: 90rem; // меню и главный блок
+$grid-arrows-tab-port-width: 108rem; // кнопки слева и справа
+$grid-main-container-tab-port-width: 90rem; // основная сетка
+
+/* ---------------------------------------
+  |  4️⃣ Phone: ≤ 600px ГОРИЗОНТАЛЬНАЯ 4️⃣ |
+  -------------------------------------- */
+
+$grid-header-phone-width: 70rem; // меню и главный блок
+$grid-choose-option-phone-width: 70rem; // меню и главный блок
+$grid-main-container-phone-width: 65rem; // основная сетка
+
+/* -------------------------------------
+  |  5️⃣ Extra small phone: ≤ 320px 5️⃣ |
+  ------------------------------------ */
+
+$grid-header-xs-phone-width: 95vw; // меню и главный блок
+$grid-choose-option-xs-phone-width: 95vw; // меню и главный блок
+$grid-main-container-xs-phone-width: 90vw; // основная сетка
+
+/* 
+
+ПЕРЕКЛЮЧЕНИЯ МЕЖДУ КАРТОЧКАМИ
+
+class= "btn-method"
+
+1. Пассивный доход от аренды --> data-method="rent"
+2. Доход от перепродажи --> data-method="resale"
+3. Доход от «Золотого якоря» --> data-method="golden-anchor"
+
+ПЕРЕКЛЮЧЕНИЯ МЕЖДУ ГОРОДАМИ
+
+class= "btn-city"
+
+1. Все города --> data-city="all"
+2. Дубай --> data-city="dubai"
+3. Абу-Даби --> data-city="abu-dabi"
+4. Шарджа --> data-city="sharjah"
+5. Аджман --> data-city="ajman"
+6. Фуджейра --> data-city="fujairah"
+
+ЧТО ПИСАТЬ В САМИ КАРТОЧКИ
+
+data-id="card-invest-1" ПИСАТЬ ЧИСЛА ПО ПОРЯДКУ
+data-city="dubai"
+data-method="rent
+
+*/

@@ -6,6 +6,14 @@
   align-items: center;
   gap: 1.5rem;
   padding: 1.5rem;
+  flex-wrap: wrap;
+
+  @include respond(phone) {
+    flex-wrap: nowrap; /* отключаем перенос */
+    overflow-x: auto; /* включаем горизонтальный скролл */
+    -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
+    scrollbar-width: none;
+  }
 
   &__item {
     background-color: #adb5bd;

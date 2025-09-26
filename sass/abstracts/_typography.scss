@@ -7,3 +7,17 @@ body {
   color: var(--color-font);
   font-size: 1.6rem;
 }
+
+.text-bold {
+  font-weight: 700;
+}
+
+.divider {
+  display: block;
+  border-bottom: 0.1rem solid var(--color-grey-light-2);
+  margin: 1.5rem 0;
+
+  @include respond(tab-land) {
+    margin: 1rem 0;
+  }
+}

@@ -7,6 +7,7 @@
     align-items: flex-end;
     justify-content: space-between;
     gap: 2rem;
+    margin: 2rem 0;
 
     @include respond-max(48.75em) {
       //780px
@@ -96,7 +97,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
   }
 
   &__mobile-menue {
@@ -117,6 +118,7 @@
 
   &__second {
     width: 100%;
+    margin-bottom: 2rem;
   }
 
   &__search-form-mobile {

@@ -134,37 +134,19 @@
         </div>
         <div class="content">
           <header class="header">
-            <form class="header__search-form" id="search-form">
-              <input
-                class="header__input"
-                type="text"
-                id="search"
-                placeholder="Favorite drink..."
-              />
-              <!-- Иконка слева -->
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="header__icon"
-              >
-                <path d="m21 21-4.34-4.34" />
-                <circle cx="11" cy="11" r="8" />
-              </svg>
-            </form>
-            <div class="header__info">
-              <div class="header__favorate"></div>
-              <div class="header__mood"></div>
-              <div class="header__avatar"></div>
-            </div>
-            <div class="mobile-menue">
-              <div class="mobile-menue__icon">
+            <div class="header__desktop">
+              <h1 class="header__title">
+                What would <br />
+                you like to drink?
+              </h1>
+              <form class="header__search-form-desktop" id="search-form">
+                <input
+                  class="header__input"
+                  type="text"
+                  id="search"
+                  placeholder="Favorite drink..."
+                />
+                <!-- Иконка слева -->
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
@@ -175,12 +157,72 @@
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
-                  class="lucide lucide-menu-icon lucide-menu"
+                  class="header__icon"
                 >
-                  <path d="M4 5h16" />
-                  <path d="M4 12h16" />
-                  <path d="M4 19h16" />
+                  <path d="m21 21-4.34-4.34" />
+                  <circle cx="11" cy="11" r="8" />
                 </svg>
+              </form>
+              <div class="header__info">
+                <div class="header__button"></div>
+                <div class="header__button"></div>
+                <div class="header__button"></div>
+              </div>
+            </div>
+
+            <div class="header__mobile">
+              <div class="header__first">
+                <h1 class="header__title">
+                  What would <br />
+                  you like to drink?
+                </h1>
+                <div class="header__mobile-menue">
+                  <div class="header__mobile-menue__button">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="lucide lucide-menu-icon lucide-menu"
+                    >
+                      <path d="M4 5h16" />
+                      <path d="M4 12h16" />
+                      <path d="M4 19h16" />
+                    </svg>
+                  </div>
+                  <div class="header__mobile-menue__button"></div>
+                </div>
+              </div>
+              <div class="header__second">
+                <form class="header__search-form-mobile" id="search-form">
+                  <input
+                    class="header__input-mobile"
+                    type="text"
+                    id="search"
+                    placeholder="Favorite drink..."
+                  />
+                  <!-- Иконка слева -->
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="header__icon-mobile"
+                  >
+                    <path d="m21 21-4.34-4.34" />
+                    <circle cx="11" cy="11" r="8" />
+                  </svg>
+                </form>
               </div>
             </div>
           </header>

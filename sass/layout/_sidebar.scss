@@ -78,14 +78,14 @@
   &__mobile {
     display: none;
 
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
-    margin-left: -1rem;
-
     @include respond(tab-land) {
       display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 100%;
+      margin-left: -1rem;
+      padding: 2rem 0;
     }
   }
 
@@ -97,7 +97,7 @@
     margin-bottom: -22rem;
   }
 
-  &__icons {
+  &__icons-short {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -107,8 +107,8 @@
     background-color: #f8f9fa;
     color: #adb5bd;
     border-radius: 0.8rem;
-    width: 4rem;
-    height: 4rem;
+    width: 4.5rem;
+    height: 4.5rem;
     padding: 1rem;
   }
 
@@ -119,6 +119,9 @@
   }
 
   &__iconbox-short {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #f8f9fa;
     border-radius: 0.8rem;
     width: 4rem;

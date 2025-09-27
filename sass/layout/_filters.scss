@@ -1,23 +1,39 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
 
+.filters {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 3rem;
+  flex-wrap: wrap;
+}
+
 .filter {
   display: flex;
-  align-items: center;
-  gap: 1.5rem;
-  padding: 1.5rem;
-  flex-wrap: wrap;
+  flex-direction: column;
 
-  @include respond(phone) {
-    flex-wrap: nowrap; /* отключаем перенос */
-    overflow-x: auto; /* включаем горизонтальный скролл */
-    -webkit-overflow-scrolling: touch; /* плавный скролл на iOS */
-    scrollbar-width: none;
+  &__list {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    flex-wrap: wrap;
   }
 
   &__item {
     background-color: #adb5bd;
+    border: 1.4px solid transparent;
     border-radius: 0.8rem;
-    padding: 0.5rem 3rem;
+    padding: 0.5rem 2rem;
+    list-style: none;
+    white-space: nowrap;
+    color: #f8f9fa;
+  }
+
+  &__item.active {
+    background-color: #f8f9fa;
+    border-color: #adb5bd;
+    color: #adb5bd;
   }
 }

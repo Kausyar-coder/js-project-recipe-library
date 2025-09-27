@@ -55,7 +55,7 @@
 
   &__input:focus {
     outline: none;
-    border-color: #e9ecef;
+    border-color: #adb5bd;
     background-color: #f8f9fa;
   }
 
@@ -74,7 +74,11 @@
     width: 4.5rem;
     height: 4.5rem;
     background-color: #adb5bd;
+    color: #e9ecef;
     border-radius: 0.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 

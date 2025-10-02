@@ -19,8 +19,9 @@
     line-height: 1.3;
     font-size: 3rem;
 
-    @include respond(phone) {
-      font-size: 2.7rem;
+    @include respond-max(48.75em) {
+      //780px
+      display: none;
     }
   }
 
@@ -101,28 +102,18 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 4rem 0;
+    margin: 1rem 0;
+    gap: 1rem;
   }
 
-  &__mobile-menue {
+  &__mobile-menue__button {
+    width: 4.5rem;
+    height: 4.5rem;
+    background-color: #adb5bd;
+    border-radius: 0.8rem;
     display: flex;
     align-items: center;
-    gap: 1.5rem;
-
-    &__button {
-      width: 4.5rem;
-      height: 4.5rem;
-      background-color: #adb5bd;
-      border-radius: 0.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-
-  &__second {
-    width: 100%;
-    margin-bottom: 1rem;
+    justify-content: center;
   }
 
   &__search-form-mobile {

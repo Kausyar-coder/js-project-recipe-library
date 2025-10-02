@@ -1,11 +1,2 @@
 @use "../abstracts/variables" as *;
 @use "../abstracts/mixins" as *;
-
-.recept {
-  &__card {
-    background-color: #adb5bd;
-    border-radius: 2rem;
-    width: 100%;
-    height: 100%;
-  }
-}

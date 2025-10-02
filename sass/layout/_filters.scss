@@ -5,7 +5,7 @@
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 3rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -15,10 +15,13 @@
 
   &__list {
     display: flex;
-    align-items: flex-start;
+    flex-wrap: nowrap;
     gap: 1rem;
-
-    flex-wrap: wrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    width: 100vw; // ключ к появлению скролла
+    justify-content: flex-start;
   }
 
   &__item {
@@ -29,6 +32,7 @@
     list-style: none;
     white-space: nowrap;
     color: #f8f9fa;
+    cursor: pointer;
   }
 
   &__item.active {

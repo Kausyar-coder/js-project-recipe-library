@@ -36,28 +36,32 @@
     top: 50%;
     left: 1rem;
     transform: translateY(-50%);
-    color: #adb5bd;
+    color: var(--color-primary-first);
     width: 2rem;
   }
 
   &__input {
-    border: 1px solid #e9ecef;
-    background-color: #e9ecef;
-    padding: 1.4rem;
+    border: 1.5px solid var(--color-primary-first);
+    background-color: var(--color-white);
+    padding: 1.5rem;
     flex: 1;
     border-radius: 0.8rem;
     padding-left: 4rem;
   }
 
   &__input::placeholder {
-    color: #adb5bd;
+    color: var(--color-primary-first);
     font-family: "montserrat", sans-serif;
+    font-size: 1.5rem;
+
+    display: block;
+    padding: 2rem 0;
   }
 
   &__input:focus {
     outline: none;
-    border-color: #adb5bd;
-    background-color: #f8f9fa;
+    border-color: var(--color-primary-first);
+    background-color: var(--color-primary-first-light);
   }
 
   &__info {
@@ -74,8 +78,8 @@
   &__button {
     width: 4.5rem;
     height: 4.5rem;
-    background-color: #adb5bd;
-    color: #e9ecef;
+    background-color: var(--color-primary-second);
+    color: var(--color-primary-first-light);
     border-radius: 0.8rem;
     display: flex;
     align-items: center;
@@ -109,7 +113,7 @@
   &__mobile-menue__button {
     width: 4.5rem;
     height: 4.5rem;
-    background-color: #adb5bd;
+    background-color: var(--color-primary-first);
     border-radius: 0.8rem;
     display: flex;
     align-items: center;
@@ -143,6 +147,7 @@
   &__input-mobile::placeholder {
     color: #adb5bd;
     font-family: "montserrat", sans-serif;
+    font-size: 1.5rem;
   }
 
   &__input-mobile:focus {

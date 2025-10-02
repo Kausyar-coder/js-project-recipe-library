@@ -25,19 +25,33 @@
   }
 
   &__item {
-    background-color: #adb5bd;
     border: 1.4px solid transparent;
     border-radius: 0.8rem;
     padding: 0.5rem 2rem;
     list-style: none;
     white-space: nowrap;
-    color: #f8f9fa;
     cursor: pointer;
   }
 
-  &__item.active {
-    background-color: #f8f9fa;
-    border-color: #adb5bd;
-    color: #adb5bd;
+  &__item-blue {
+    color: var(--color-primary-first-light);
+    background-color: var(--color-primary-first);
+  }
+
+  &__item-blue.active {
+    background-color: var(--color-primary-first-light);
+    border-color: var(--color-primary-first);
+    color: var(--color-primary-first);
+  }
+
+  &__item-pink {
+    color: var(--color-primary-second-light);
+    background-color: var(--color-primary-second);
+  }
+
+  &__item-pink.active {
+    background-color: var(--color-primary-second-light);
+    border-color: var(--color-primary-second);
+    color: var(--color-primary-second);
   }
 }

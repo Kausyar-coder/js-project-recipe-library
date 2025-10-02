@@ -14,11 +14,19 @@
     }
   }
 
+  p,
+  a {
+    color: var(--color-white);
+  }
+
   &__logo {
     height: 6rem;
     width: 6rem;
+    background-image: url(../img/technig-logo.png);
+    background-size: cover; /* изображение масштабируется, чтобы покрыть весь блок */
+    background-position: center; /* центрирование изображения */
+    background-repeat: no-repeat; /* не повторять */
     border-radius: 1rem;
-    background-color: #f8f9fa;
     margin-bottom: 1rem;
   }
 
@@ -37,13 +45,13 @@
     margin: 2rem 0;
   }
 
-  &__iconbox {
-    background-color: #f8f9fa;
-    background-color: lime;
-    border-radius: 0.8rem;
-    width: 4rem;
-    height: 4rem;
-  }
+  // &__iconbox {
+  //   background-color: #f8f9fa;
+  //   background-color: lime;
+  //   border-radius: 0.8rem;
+  //   width: 4rem;
+  //   height: 4rem;
+  // }
 
   &__menu {
     align-self: flex-start;
@@ -94,7 +102,10 @@
     height: 4rem;
     width: 4rem;
     border-radius: 0.8rem;
-    background-color: #f8f9fa;
+    background-image: url(../img/technig-logo.png);
+    background-size: cover; /* изображение масштабируется, чтобы покрыть весь блок */
+    background-position: center; /* центрирование изображения */
+    background-repeat: no-repeat; /* не повторять */
     margin-bottom: -22rem;
   }
 
@@ -106,7 +117,7 @@
 
   &__icon-short {
     background-color: #f8f9fa;
-    color: #adb5bd;
+    color: var(--color-primary-second);
     border-radius: 0.8rem;
     width: 4.5rem;
     height: 4.5rem;

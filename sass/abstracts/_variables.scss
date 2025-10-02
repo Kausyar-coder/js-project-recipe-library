@@ -5,8 +5,10 @@
 :root {
   // COLORS
   // PRIMARY
-  --color-primary-light: #f2f3ef; // DARK MOODE TO #252525
-  --color-primary: #8d9271;
+  --color-primary-first-light: #fafbff; // DARK MOODE TO #252525
+  --color-primary-first: #0018a4;
+  --color-primary-second-light: #ffecea;
+  --color-primary-second: #ff6589;
 
   //GREY
   --color-white: #ffffff; // DARK MOODE TO #424242
@@ -39,8 +41,7 @@
 
   //BOX SHADOW
 
-  --box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.05);
-  --box-shadow-green: 0 0.5rem 1rem #8d92717d;
+  --box-shadow: 0 0.5rem 1rem #0019a453;
 }
 
 /* ------------------------------------------------------

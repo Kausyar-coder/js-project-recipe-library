@@ -4,7 +4,7 @@
 .middlebox {
   display: flex;
   align-items: center;
-  background-color: #adb5bd;
+  background-color: var(--color-primary-first);
   height: 100vh;
   padding: 1rem;
 
@@ -28,7 +28,7 @@
 }
 
 .content {
-  background-color: #f8f9fa;
+  background-color: var(--color-primary-first-light);
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

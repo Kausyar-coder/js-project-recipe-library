@@ -45,14 +45,6 @@
     margin: 2rem 0;
   }
 
-  // &__iconbox {
-  //   background-color: #f8f9fa;
-  //   background-color: lime;
-  //   border-radius: 0.8rem;
-  //   width: 4rem;
-  //   height: 4rem;
-  // }
-
   &__menu {
     align-self: flex-start;
     padding-left: 5rem;
@@ -116,12 +108,19 @@
   }
 
   &__icon-short {
-    background-color: #f8f9fa;
+    background-color: var(--color-primary-second-light);
     color: var(--color-primary-second);
-    border-radius: 0.8rem;
+    border-radius: 1rem;
     width: 4.5rem;
     height: 4.5rem;
     padding: 1rem;
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  &__icon-short:hover {
+    color: var(--color-primary-second-light);
+    background-color: var(--color-primary-second);
   }
 
   &__socialbox-short {
@@ -134,7 +133,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #f8f9fa;
+    background-color: var(--color-primary-second-light);
+
     border-radius: 0.8rem;
     width: 4rem;
     height: 4rem;

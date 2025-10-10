@@ -54,21 +54,95 @@ function setActiveButton(activeBtn) {
   if (activeBtn) activeBtn.classList.add("active");
 }
 
+function keepOnlyThisCard(container, cardEl) {
+  container
+    .querySelectorAll(
+      ".cards__coffee-card, .cards__juice-card, .empty-card, .no-match-card"
+    )
+    .forEach((el) => {
+      if (el !== cardEl) el.remove();
+    });
+  // На всякий случай уберём inline-скрытие
+  cardEl.style.display = "";
+}
+
+function getCacheArray(key) {
+  try {
+    const arr = JSON.parse(localStorage.getItem(key) || "[]");
+    return Array.isArray(arr) ? arr : [];
+  } catch {
+    return [];
+  }
+}
+
+function pickRandomExcluding(arr, excludeId) {
+  const pool = arr.filter((r) => String(r?.id) !== String(excludeId));
+  if (!pool.length) return null;
+  return pool[Math.floor(Math.random() * pool.length)];
+}
+
+function detectCuisine3({
+  cuisines = [],
+  title = "",
+  summary = "",
+  ingredients = [],
+}) {
+  const api = (cuisines || []).map((s) => String(s).toLowerCase());
+  if (api.some((c) => /italian/.test(c))) return "italian";
+  if (
+    api.some((c) =>
+      /(asian|japanese|chinese|korean|thai|indian|vietnamese)/.test(c)
+    )
+  )
+    return "asian";
+  if (
+    api.some((c) =>
+      /(middle\s*eastern|arab|leban|turk|persian|iranian)/.test(c)
+    )
+  )
+    return "middle eastern";
+
+  const t = `${title} ${summary}`.toLowerCase();
+  if (/(tiramisu|panna\s*cotta|cannoli|amaretto|mascarpone|ital|sicil)/.test(t))
+    return "italian";
+  if (
+    /(mochi|matcha|dorayaki|anko|japan|japanese|ramen|udon|sushi|thai|kimchi|korean|chinese|indian|masala)/.test(
+      t
+    )
+  )
+    return "asian";
+  if (
+    /(baklava|kunafa|kanafeh|maamoul|halva|tahini|rose\s*water|orange\s*blossom|middle\s*east|arab|leban|turk|persian|iran)/.test(
+      t
+    )
+  )
+    return "middle eastern";
+
+  const ing = ingredients.map((i) => String(i || "").toLowerCase()).join(" ");
+  if (/(mascarpone|savoiardi|amaretto)/.test(ing)) return "italian";
+  if (/(matcha|azuki|black\s*sesame|rice\s*flour)/.test(ing)) return "asian";
+  if (/(tahini|date|rose\s*water|orange\s*blossom|cardamom)/.test(ing))
+    return "middle eastern";
+
+  return "other";
+}
+
+function cuisineLabel3(key) {
+  switch (key) {
+    case "italian":
+      return "Italy";
+    case "asian":
+      return "Asian";
+    case "middle eastern":
+      return "Middle East";
+    default:
+      return "Other";
+  }
+}
+
 function toNum(v) {
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
-}
-
-function guessCuisineFromTitle(title = "") {
-  const t = title.toLowerCase();
-  if (/ital|spaghe|lasagn|risott|pesto/.test(t)) return ["italian"];
-  if (
-    /asian|thai|japan|sushi|ramen|udon|pho|kimchi|korean|chinese|indian/.test(t)
-  )
-    return ["asian"];
-  if (/middle\s*east|arab|leban|turk|shawarma|hummus|falafel|persian/.test(t))
-    return ["middle eastern"];
-  return ["other"];
 }
 
 function fetchJSON(url) {
@@ -96,6 +170,32 @@ function ensureFavoritesLoaded() {
     favorites = Array.isArray(data) ? data : [];
   } catch {
     favorites = [];
+  }
+}
+
+function ensureNoMatchBanner(container) {
+  const cards = Array.from(
+    container.querySelectorAll(".cards__coffee-card, .cards__juice-card")
+  ).filter((el) => !el.classList.contains("empty-card"));
+
+  const anyVisible = cards.some(
+    (c) => c.style.display !== "none" && c.offsetParent !== null
+  );
+  let banner = container.querySelector(".no-match-card");
+
+  if (!anyVisible) {
+    if (!banner) {
+      banner = document.createElement("div");
+      banner.className = "no-match-card empty-card";
+      banner.innerHTML = `
+        <div class="empty-card__box">
+          <h2>🥺 Oops</h2>
+          <p>No recipes matched your filter.</p>
+        </div>`;
+      container.appendChild(banner);
+    }
+  } else {
+    banner?.remove();
   }
 }
 
@@ -158,7 +258,7 @@ buttonFavorites.forEach((btn) => {
 });
 
 /* ==========================
-   RENDER: COFFEE
+   RENDER: COFFEE (Desserts)
    ========================== */
 async function renderCoffeeCards() {
   if (coffeeRendered) return;
@@ -166,28 +266,65 @@ async function renderCoffeeCards() {
   containerCoffee && (containerCoffee.innerHTML = "");
 
   try {
-    const url = `${SPOON_BASE}/recipes/complexSearch?query=coffee&type=dessert&addRecipeInformation=true&number=10&apiKey=${API_KEY}`;
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=coffee&addRecipeInformation=true&number=3&apiKey=003fb0433f9c48348cea44cc791555a4`;
     const data = await fetchJSON(url);
     const arr = data.results || [];
     if (!arr.length) throw new Error("No coffee results");
     cacheSet(LS_COFFEE, arr);
     arr.forEach(addCoffeeCard);
-  } catch {
+  } catch (err) {
     const cached = cacheGet(LS_COFFEE);
-    if (Array.isArray(cached) && cached.length) cached.forEach(addCoffeeCard);
-    else showEmptyCoffeeCard();
+    if (Array.isArray(cached) && cached.length) {
+      cached.forEach(addCoffeeCard);
+      return;
+    }
+
+    // Error handling (translated from Russian)
+    const code = String(err?.message || "");
+
+    if (code.startsWith("HTTP_401")) {
+      showEmptyCoffeeCard(
+        containerCoffee,
+        "🔑 Missing API Key",
+        "Please check your API_KEY or use a secure backend proxy."
+      );
+    } else if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
+      showEmptyCoffeeCard(
+        containerCoffee,
+        "⏳ API Limit Reached",
+        "Daily request limit exceeded. Wait for the reset or reduce the number of requests."
+      );
+    } else if (code === "NETWORK") {
+      showEmptyCoffeeCard(
+        containerCoffee,
+        "🌐 Network / CORS Error",
+        "Check your internet connection or CORS / proxy configuration."
+      );
+    } else {
+      showEmptyCoffeeCard(
+        containerCoffee,
+        "😕 Failed to Load",
+        "The service is temporarily unavailable. Please try again later."
+      );
+    }
   }
+
+  ensureNoMatchBanner(containerCoffee);
 }
 
 function addCoffeeCard(r) {
-  const cuisines = (
-    r.cuisines?.length ? r.cuisines : guessCuisineFromTitle(r.title)
-  ).map((c) => String(c).toLowerCase());
+  const cuisineKey = detectCuisine3({
+    cuisines: r.cuisines || [],
+    title: r.title || "",
+    summary: r.summary || "",
+    ingredients: (r.extendedIngredients || []).map((i) => i.name),
+  });
+  const cuisineText = cuisineLabel3(cuisineKey);
 
   const card = document.createElement("div");
   card.classList.add("cards__coffee-card");
   card.dataset.id = String(r.id);
-  card.dataset.cuisine = cuisines.join("|");
+  card.dataset.cuisine = cuisineKey;
   card.dataset.cooking = String(r.readyInMinutes ?? "0"); // used for speed sort
   card.dataset.popularity = String(r.aggregateLikes ?? 0);
 
@@ -196,9 +333,7 @@ function addCoffeeCard(r) {
     <h2 class="cards__coffee-card__title">${r.title}</h2>
     <span class="divider"></span>
     <div>
-      <p class="cards__coffee-card__meta"><span class="text-bold">Cuisine:</span> ${cuisines.join(
-        ", "
-      )}</p>
+      <p class="cards__coffee-card__meta"><span class="text-bold">Cuisine:</span> ${cuisineText}</p>
       <p class="cards__coffee-card__time"><span class="text-bold">Cooking time:</span> ${
         r.readyInMinutes ?? "N/A"
       } min</p>
@@ -244,29 +379,64 @@ async function renderJuiceCards() {
   containerJuice && (containerJuice.innerHTML = "");
 
   try {
-    const url = `${SPOON_BASE}/recipes/complexSearch?query=dessert&type=dessert&addRecipeInformation=true&number=10&apiKey=${API_KEY}`;
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=fruit&addRecipeInformation=true&number=3&apiKey=003fb0433f9c48348cea44cc791555a4`;
     const data = await fetchJSON(url);
     const arr = data.results || [];
     if (!arr.length) throw new Error("No dessert results");
     cacheSet(LS_JUICE, arr);
     arr.forEach(addJuiceCard);
-  } catch {
+  } catch (err) {
     const cached = cacheGet(LS_JUICE);
-    if (Array.isArray(cached) && cached.length) cached.forEach(addJuiceCard);
-    else showEmptyJuiceCard();
+    if (Array.isArray(cached) && cached.length) {
+      cached.forEach(addJuiceCard);
+      return;
+    }
+    // Расшифровка причин
+    const code = String(err?.message || "");
+    if (code.startsWith("HTTP_401")) {
+      showEmptyJuiceCard(
+        containerJuice,
+        "🔑 Нужен ключ API",
+        "Проверь API_KEY или используй серверный прокси."
+      );
+    } else if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
+      showEmptyJuiceCard(
+        containerJuice,
+        "⏳ Лимит API",
+        "Дневной лимит исчерпан. Подожди суточный реcет или снизь объём запросов."
+      );
+    } else if (code === "NETWORK") {
+      showEmptyJuiceCard(
+        containerJuice,
+        "🌐 Ошибка сети/CORS",
+        "Проверь интернет или настрой прокси (CORS)."
+      );
+    } else {
+      showEmptyJuiceCard(
+        containerJuice,
+        "😕 Не удалось загрузить",
+        "Сервис временно недоступен. Попробуй позже."
+      );
+    }
   }
+
+  ensureNoMatchBanner(containerJuice);
 }
 
 function addJuiceCard(r) {
-  const cuisines = (
-    r.cuisines?.length ? r.cuisines : guessCuisineFromTitle(r.title)
-  ).map((c) => String(c).toLowerCase());
+  const cuisineKey = detectCuisine3({
+    cuisines: r.cuisines || [],
+    title: r.title || "",
+    summary: r.summary || "",
+    ingredients: (r.extendedIngredients || []).map((i) => i.name),
+  });
+  const cuisineText = cuisineLabel3(cuisineKey);
 
   const card = document.createElement("div");
-  card.classList.add("cards__juice-card");
+  card.classList.add("cards__coffee-card");
   card.dataset.id = String(r.id);
-  card.dataset.cuisine = cuisines.join("|");
-  card.dataset.cooking = String(r.readyInMinutes ?? "0");
+  card.dataset.cuisine = cuisineKey;
+  card.dataset.cooking = String(r.readyInMinutes ?? "0"); // used for speed sort
   card.dataset.popularity = String(r.aggregateLikes ?? 0);
 
   card.innerHTML = `
@@ -274,9 +444,7 @@ function addJuiceCard(r) {
     <h2 class="cards__juice-card__title">${r.title}</h2>
     <span class="divider"></span>
     <div>
-      <p class="cards__juice-card__meta"><span class="text-bold">Cuisine:</span> ${cuisines.join(
-        ", "
-      )}</p>
+      <p class="cards__juice-card__meta"><span class="text-bold">Cuisine:</span> ${cuisineText}</p>
       <p class="cards__juice-card__time"><span class="text-bold">Cooking time:</span> ${
         r.readyInMinutes ?? "N/A"
       } min</p>
@@ -313,9 +481,9 @@ function showEmptyJuiceCard() {
   containerJuice?.appendChild(emptyCard);
 }
 
-/* ==========================
+/* ===================================
    FAVORITES (save / render / toggle)
-   ========================== */
+   =================================== */
 function toggleFavoriteCard(cardEl) {
   const recipeId = String(cardEl.dataset.id || "");
   if (!recipeId) {
@@ -346,7 +514,9 @@ function renderFavorites() {
 
   containerFavorites.innerHTML = "";
   if (!favorites.length) {
-    containerFavorites.innerHTML = "<p>No favorites yet 💔</p>";
+    containerFavorites.innerHTML = `
+      <div class="cardFavorites">No favorites yet 💔</div>
+    `;
     return;
   }
 
@@ -360,9 +530,9 @@ function renderFavorites() {
   });
 }
 
-/* ==========================
+/* ==========================================
    FILTERS / SORTING (single .filters block)
-   ========================== */
+   ========================================== */
 let speedDescending = true;
 let popularityDescending = true;
 
@@ -434,6 +604,7 @@ function filterCards(container, type, value) {
         .filter(Boolean);
       card.style.display = list.includes(wanted) ? "" : "none";
     });
+    ensureNoMatchBanner(container);
     return;
   }
 
@@ -456,9 +627,9 @@ function sortCards(container, field, descending) {
   cards.forEach((card) => container.appendChild(card));
 }
 
-/* ==========================
+/* ======================================
    RANDOM PICK (real random + fallbacks)
-   ========================== */
+   ====================================== */
 function getCardById(container, id) {
   return (
     container?.querySelector(`[data-id="${CSS.escape(String(id))}"]`) || null
@@ -485,83 +656,90 @@ function pickRandomFromRendered(container) {
 
 async function fetchRandomCard(category) {
   const isCoffee = category === "coffee";
-  const container = isCoffee ? containerCoffee : containerJuice; // tea not implemented for random
+  const container = isCoffee ? containerCoffee : containerJuice;
   if (!container) return;
 
-  // 1) Try true random endpoint
+  // текущая видимая карточка (если есть)
+  const visible = Array.from(
+    container.querySelectorAll(".cards__coffee-card, .cards__juice-card")
+  ).filter(
+    (el) => el.offsetParent !== null && !el.classList.contains("empty-card")
+  );
+
+  const currentId =
+    visible.length === 1 ? String(visible[0].dataset.id || "") : "";
+
+  // 1) пробуем взять ДРУГУЮ из кэша
+  const storageKey = isCoffee ? LS_COFFEE : LS_JUICE;
+  const cacheArr = getCacheArray(storageKey);
+  const otherFromCache = pickRandomExcluding(cacheArr, currentId);
+
+  if (otherFromCache) {
+    // очищаем контейнер и показываем ровно 1 новую
+    container
+      .querySelectorAll(
+        ".cards__coffee-card, .cards__juice-card, .empty-card, .no-match-card"
+      )
+      .forEach((el) => el.remove());
+    (isCoffee ? addCoffeeCard : addJuiceCard)(otherFromCache);
+    const added = container.lastElementChild;
+    if (added) {
+      added.classList.add("pulse");
+      setTimeout(() => added.classList.remove("pulse"), 800);
+      added.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    return;
+  }
+
+  // 2) если в кэше только одна карточка (или он пуст), пробуем сеть (может дать 402)
   try {
-    const tags = "dessert"; // since you said these are desserts
-    const urlRandom = `${SPOON_BASE}/recipes/random?number=1&tags=${encodeURIComponent(
-      tags
+    const query = isCoffee ? "cake" : "dessert";
+    const url = `${SPOON_BASE}/recipes/complexSearch?query=${encodeURIComponent(
+      query
+    )}&addRecipeInformation=true&number=1&offset=${Math.floor(
+      Math.random() * 50
     )}&apiKey=${API_KEY}`;
-    const j1 = await fetchJSON(urlRandom);
-    const recipe = j1.recipes?.[0];
-    if (recipe) {
-      if (getCardById(container, recipe.id)) {
-        getCardById(container, recipe.id).scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
-        return;
+    const data = await fetchJSON(url);
+    const recipe = data.results?.[0];
+
+    if (recipe && String(recipe.id) !== currentId) {
+      container
+        .querySelectorAll(
+          ".cards__coffee-card, .cards__juice-card, .empty-card, .no-match-card"
+        )
+        .forEach((el) => el.remove());
+      (isCoffee ? addCoffeeCard : addJuiceCard)(recipe);
+      const added = container.lastElementChild;
+      if (added) {
+        added.classList.add("pulse");
+        setTimeout(() => added.classList.remove("pulse"), 800);
+        added.scrollIntoView({ behavior: "smooth", block: "center" });
       }
-      isCoffee ? addCoffeeCard(recipe) : addJuiceCard(recipe);
       return;
     }
-  } catch {}
-
-  // 2) Fallback: complexSearch with random offset
-  try {
-    const query = isCoffee ? "coffee dessert" : "dessert";
-    const headUrl = `${SPOON_BASE}/recipes/complexSearch?query=${encodeURIComponent(
-      query
-    )}&type=dessert&addRecipeInformation=true&number=1&apiKey=${API_KEY}`;
-    const head = await fetchJSON(headUrl);
-    const total = head.totalResults || 0;
-    if (total > 0) {
-      const capped = Math.min(total, 900);
-      const offset = Math.floor(Math.random() * Math.max(capped - 1, 1));
-      const pickUrl = `${SPOON_BASE}/recipes/complexSearch?query=${encodeURIComponent(
-        query
-      )}&type=dessert&addRecipeInformation=true&number=1&offset=${offset}&apiKey=${API_KEY}`;
-      const pick = await fetchJSON(pickUrl);
-      const recipe = pick.results?.[0];
-      if (recipe) {
-        if (getCardById(container, recipe.id)) {
-          getCardById(container, recipe.id).scrollIntoView({
-            behavior: "smooth",
-            block: "center",
-          });
-          return;
-        }
-        isCoffee ? addCoffeeCard(recipe) : addJuiceCard(recipe);
-        return;
-      }
+  } catch (e) {
+    const code = String(e?.message || "");
+    if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
+      container
+        .querySelectorAll(
+          ".cards__coffee-card, .cards__juice-card, .no-match-card"
+        )
+        .forEach((el) => el.remove());
+      showEmptyCard(
+        container,
+        "⏳ Random unavailable",
+        "API limit reached — try again after reset."
+      );
+      return;
     }
-  } catch {}
-
-  // 3) Fallbacks: cache -> rendered
-  const storageKey = isCoffee ? LS_COFFEE : LS_JUICE;
-  const cached = pickRandomFromStorage(storageKey);
-  if (cached) {
-    if (!getCardById(container, cached.id)) {
-      isCoffee ? addCoffeeCard(cached) : addJuiceCard(cached);
-    } else {
-      getCardById(container, cached.id).scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }
-    return;
   }
 
-  const rendered = pickRandomFromRendered(container);
-  if (rendered) {
-    rendered.classList.add("pulse"); // optional CSS animation if you add it
-    setTimeout(() => rendered.classList.remove("pulse"), 800);
-    rendered.scrollIntoView({ behavior: "smooth", block: "center" });
-    return;
+  // 3) если совсем нечего менять — просто подчёркиваем текущую
+  if (visible[0]) {
+    visible[0].classList.add("pulse");
+    setTimeout(() => visible[0].classList.remove("pulse"), 800);
+    visible[0].scrollIntoView({ behavior: "smooth", block: "center" });
+  } else {
+    showEmptyCard(container, "😕 Nothing to pick", "Load some recipes first.");
   }
-
-  // If absolutely nothing exists
-  isCoffee ? showEmptyCoffeeCard() : showEmptyJuiceCard();
 }

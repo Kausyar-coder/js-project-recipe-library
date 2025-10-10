@@ -3,8 +3,6 @@
 
 .filters {
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
   gap: 1rem;
   flex-wrap: wrap;
 }
@@ -20,7 +18,7 @@
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
-    width: 100vw; // ключ к появлению скролла
+    width: auto;
     justify-content: flex-start;
   }
 
@@ -31,6 +29,7 @@
     list-style: none;
     white-space: nowrap;
     cursor: pointer;
+    transition: 0.3s;
   }
 
   &__item-blue {
@@ -44,14 +43,26 @@
     color: var(--color-primary-first);
   }
 
-  &__item-pink {
-    color: var(--color-primary-second-light);
-    background-color: var(--color-primary-second);
+  &__item-blue:hover {
+    background-color: #ccffe2;
+    border-color: var(--color-primary-first);
+    color: var(--color-primary-first);
   }
 
-  &__item-pink.active {
-    background-color: var(--color-primary-second-light);
-    border-color: var(--color-primary-second);
-    color: var(--color-primary-second);
+  &__item-yellow {
+    color: #fdf8e1;
+    background-color: #fdb833;
+  }
+
+  &__item-yellow.active {
+    background-color: #fdf8e1;
+    border-color: #fdb833;
+    color: #fdb833;
+  }
+
+  &__item-yellow:hover {
+    background-color: #fdf8e1;
+    border-color: #fdb833;
+    color: #fdb833;
   }
 }

@@ -78,6 +78,7 @@
   &__icon-short {
     background-color: var(--color-primary-second);
     color: var(--color-primary-second-light);
+
     border: 1.5px solid transparent;
     border-radius: 1rem;
     width: 4.5rem;
@@ -89,6 +90,14 @@
 
   &__icon-short:hover {
     color: var(--color-primary-second);
+    fill: var(--color-primary-second);
+    background-color: var(--color-primary-second-light);
+    border-color: var(--color-primary-second);
+  }
+
+  &__icon-short.active {
+    color: var(--color-primary-second);
+    fill: var(--color-primary-second);
     background-color: var(--color-primary-second-light);
     border-color: var(--color-primary-second);
   }

@@ -17,9 +17,9 @@
       <div class="sidebar">
         <div class="sidebar__desktop">
           <div class="sidebar__logo"></div>
-          <p class="sidebar__title">Perfect drink</p>
+          <p class="sidebar__title">Perfect dessert</p>
           <p class="sidebar__subtitle">
-            Discover your favorite <br />drink recipe today
+            Discover your favorite <br />dessert recipe today
           </p>
           <div class="sidebar__socialbox">
             <svg
@@ -78,23 +78,30 @@
             <ul class="sidebar__menu-list">
               <!-- Drinks -->
               <li class="sidebar__menu-item">
-                <a href="#" class="sidebar__menu-link">Drinks</a>
+                <a href="#" class="sidebar__menu-link">Desserts</a>
                 <ul class="sidebar__submenu">
                   <li class="sidebar__submenu-item">
-                    <a class="sidebar__submenu-link" href="#">Tea</a>
+                    <a class="sidebar__submenu-link" id="button-coffee" href="#"
+                      >🍰 Coffee desserts</a
+                    >
+                  </li>
+
+                  <li class="sidebar__submenu-item">
+                    <a class="sidebar__submenu-link" id="button-juice" href="#"
+                      >🍰 Fruit</br>desserts</a
+                    >
                   </li>
                   <li class="sidebar__submenu-item">
-                    <a class="sidebar__submenu-link" href="#">Coffee</a>
-                  </li>
-                  <li class="sidebar__submenu-item">
-                    <a class="sidebar__submenu-link" href="#">Juices</a>
+                    <a class="sidebar__submenu-link" id="button-tea" href="#"
+                      >🍰 Chocolate desserts</a
+                    >
                   </li>
                 </ul>
               </li>
 
               <!-- Favorites -->
               <li class="sidebar__menu-item">
-                <a href="#" class="sidebar__menu-link">Favorites</a>
+                <a href="#" class="sidebar__menu-link button-favorites">Favorites</a>
               </li>
 
               <!-- Settings -->
@@ -119,6 +126,8 @@
         <div class="sidebar__mobile">
           <div class="sidebar__logo-short"></div>
           <div class="sidebar__icons-short">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="sidebar__icon-short"><path d="M16 13H3"/><path d="M16 17H3"/><path d="m7.2 7.9-3.388 2.5A2 2 0 0 0 3 12.01V20a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-8.654c0-2-2.44-6.026-6.44-8.026a1 1 0 0 0-1.082.057L10.4 5.6"/><circle cx="9" cy="7" r="2"/></svg>
+            
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -129,26 +138,7 @@
               stroke-width="1.5"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="sidebar__icon-short"
-            >
-              <path d="M10 2v2" />
-              <path d="M14 2v2" />
-              <path
-                d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"
-              />
-              <path d="M6 2v2" />
-            </svg>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="1.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="sidebar__icon-short"
+              class="sidebar__icon-short button-favorites"
             >
               <path
                 d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
@@ -231,15 +221,14 @@
         <header class="header">
           <div class="header__desktop">
             <h1 class="header__title">
-              What would <br />
-              you like to drink?
+              What dessert <br />would you like?
             </h1>
             <form class="header__search-form-desktop" id="search-form">
               <input
                 class="header__input"
                 type="text"
                 id="search"
-                placeholder="Favorite drink..."
+                placeholder="Favorite dessert..."
               />
               <!-- Иконка слева -->
               <svg
@@ -260,22 +249,21 @@
             </form>
             <div class="header__info">
               <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="1.5"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="header__icon-short"
-              >
-                <path d="M10.268 21a2 2 0 0 0 3.464 0" />
-                <path
-                  d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326"
-                />
-              </svg>
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="header__icon-short button-favorites"
+            >
+              <path
+                d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"
+              />
+            </svg>
               <div class="header__logo"></div>
             </div>
           </div>
@@ -287,7 +275,7 @@
                   class="header__input-mobile"
                   type="text"
                   id="search"
-                  placeholder="Favorite drink..."
+                  placeholder="Favorite dessert..."
                 />
                 <!-- Иконка слева -->
                 <svg
@@ -329,385 +317,43 @@
         </header>
 
         <div class="filters">
-          <div class="filter">
-            <!-- Первый фильтр: Beans -->
-            <h3 class="filter__title">Beans</h3>
-            <ul class="filter__list" data-filter="seed">
-              <li
-                class="filter__item filter__item-blue active"
-                data-type="seed"
-                data-value="all"
-              >
-                All
-              </li>
-              <li
-                class="filter__item filter__item-blue"
-                data-type="seed"
-                data-value="arabica"
-              >
-                Arabica
-              </li>
-              <li
-                class="filter__item filter__item-blue"
-                data-type="seed"
-                data-value="robusta"
-              >
-                Robusta
-              </li>
-            </ul>
-          </div>
-          <div class="filter">
-            <!-- Второй фильтр: Drinking Time -->
-            <h3 class="filter__title">Drinking time</h3>
-            <ul class="filter__list" data-filter="time">
-              <li
-                class="filter__item filter__item-pink active"
-                data-type="time"
-                data-value="all"
-              >
-                All
-              </li>
-              <li
-                class="filter__item filter__item-pink"
-                data-type="time"
-                data-value="morning"
-              >
-                Morning coffee
-              </li>
-              <li
-                class="filter__item filter__item-pink"
-                data-type="time"
-                data-value="evening"
-              >
-                Evening coffee
-              </li>
-              <li
-                class="filter__item filter__item-pink"
-                data-type="time"
-                data-value="night"
-              >
-                Night coffee
-              </li>
-            </ul>
-          </div>
+          
+            <!-- first filter for cuisine -->
+            <div class="filter">
+<h3 class="filter__title">Cuisine</h3>
+  <ul class="filter__list" data-filter="cuisine">
+    <li class="filter__item filter__item-blue active" data-type="cuisine" data-value="all">All</li>
+    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="Italian">Italy</li>
+    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="Asian">Asian</li>
+    <li class="filter__item filter__item-blue" data-type="cuisine" data-value="Middle Eastern">Middle East</li>
+  </ul>
+            </div>
+            <!-- второй фильтр: Sorting -->
+            <div class="filter">
+              <h3 class="filter__title">Sorting</h3>
+              <ul class="filter__list" data-filter="sort">
+                <li class="filter__item filter__item-yellow" data-type="sort" data-value="speed">Descending</li>
+        <li class="filter__item filter__item-yellow" data-type="sort" data-value="popular">Popularity</li>
+        <li class="filter__item filter__item-yellow" data-type="sort" data-value="random">Random</li>
+              </ul>
+            </div>
+          
         </div>
-        <div class="main">
-          <div class="cards">
-            <!-- 1. Espresso -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="morning"
-            >
-              <img
-                src="img/Espresso.png"
-                alt="Espresso"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Espresso</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~3 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                </ul>
-              </div>
-            </div>
 
-            <!-- 2. Cappuccino -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="evening"
-            >
-              <img
-                src="img/Cappuccino.png"
-                alt="Cappuccino"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Cappuccino</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~5 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                  <li>Milk – 100 ml</li>
-                  <li>Frothed milk foam – 50 ml</li>
-                </ul>
-              </div>
-            </div>
+        <div class="main-coffee">
+          <div class="cards" id="coffee-container"></div>
+        </div>
 
-            <!-- 3. Latte -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="evening"
-            >
-              <img
-                src="img/latte.png"
-                alt="Latte"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Latte</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~5 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                  <li>Steamed milk – 150 ml</li>
-                  <li>Milk foam – 20 ml</li>
-                </ul>
-              </div>
-            </div>
+        <div class="main-tea">
+          <div class="cards" id="tea-container"></div>
+        </div>
 
-            <!-- 4. Americano -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="morning"
-            >
-              <img
-                src="img/Americano.png"
-                alt="Americano"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Americano</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~4 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                  <li>Hot water – 100 ml</li>
-                </ul>
-              </div>
-            </div>
+        <div class="main-juice">
+          <div class="cards" id="juice-container"></div>
+        </div>
 
-            <!-- 5. Macchiato -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="evening"
-            >
-              <img
-                src="img/Macchiato.png"
-                alt="Macchiato"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Macchiato</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~3 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                  <li>Milk foam – 10 ml</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- 6. Flat White -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="evening"
-            >
-              <img
-                src="img/Flat White.png"
-                alt="Flat White"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Flat White</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~5 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                  <li>Steamed milk – 120 ml</li>
-                  <li>Thin layer of milk foam</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- 7. Mocha -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="evening"
-            >
-              <img
-                src="img/Mocha.png"
-                alt="Mocha"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Mocha</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~6 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                  <li>Chocolate syrup – 20 ml</li>
-                  <li>Steamed milk – 100 ml</li>
-                  <li>Milk foam – 20 ml</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- 8. Irish Coffee -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="night"
-            >
-              <img
-                src="img/irish coffee.png"
-                alt="Irish Coffee"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Irish Coffee</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~5 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Hot coffee – 150 ml</li>
-                  <li>Irish whiskey – 20 ml</li>
-                  <li>Sugar – 1 tsp</li>
-                  <li>Cream – 30 ml</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- 9. Cortado -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="night"
-            >
-              <img
-                src="img/cortado.png"
-                alt="Cortado"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Cortado</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~4 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 shot</li>
-                  <li>Warm milk – 1 shot (equal to espresso)</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- 10. Ristretto -->
-            <div
-              class="cards__coffee-card card"
-              data-seed="arabica"
-              data-time="morning"
-            >
-              <img
-                src="img/Ristretto.png"
-                alt="Ristretto"
-                class="cards__coffee-card__img"
-              />
-              <h2 class="cards__coffee-card__title">Ristretto</h2>
-              <span class="divider"></span>
-              <div>
-                <p class="cards__coffee-card__beans">
-                  <span class="text-bold">Bean type:</span> arabica
-                </p>
-                <p class="cards__coffee-card__time">
-                  <span class="text-bold">Brewing time:</span> ~2 minutes
-                </p>
-              </div>
-              <span class="divider"></span>
-              <div>
-                <h3 class="cards__coffee-card__subtitle">Ingredients:</h3>
-                <ul class="cards__coffee-card__ingredients">
-                  <li>Espresso – 1 short, concentrated shot</li>
-                </ul>
-              </div>
-            </div>
-          </div>
+        <div class="main-favorites">
+          <div class="cards" id="favorites-container"></div>
         </div>
         <!-- <footer class="footer">footer</footer> -->
       </div>

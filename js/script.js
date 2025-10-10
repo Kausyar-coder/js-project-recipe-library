@@ -324,7 +324,7 @@ const DEMO_CAKES = [
     readyInMinutes: 30,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Asian"],
-    popularityL: 30,
+    aggregateLikes: 30,
   },
   {
     id: "demo_2",
@@ -334,7 +334,7 @@ const DEMO_CAKES = [
     readyInMinutes: 20,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["middle eastern"],
-    popularityL: 20,
+    aggregateLikes: 20,
   },
   {
     id: "demo_3",
@@ -344,7 +344,7 @@ const DEMO_CAKES = [
     readyInMinutes: 10,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Italian"],
-    popularityL: 10,
+    aggregateLikes: 10,
   },
   {
     id: "demo_4",
@@ -354,7 +354,7 @@ const DEMO_CAKES = [
     readyInMinutes: 15,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Italian"],
-    popularityL: 15,
+    aggregateLikes: 15,
   },
   {
     id: "demo_5",
@@ -364,7 +364,7 @@ const DEMO_CAKES = [
     readyInMinutes: 25,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Italian"],
-    popularityL: 25,
+    aggregateLikes: 25,
   },
 ];
 
@@ -377,7 +377,7 @@ const DEMO_DESSERTS = [
     readyInMinutes: 30,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Asian"],
-    popularityL: 30,
+    aggregateLikes: 30,
   },
   {
     id: "demo_2",
@@ -387,7 +387,7 @@ const DEMO_DESSERTS = [
     readyInMinutes: 20,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["middle eastern"],
-    popularityL: 20,
+    aggregateLikes: 20,
   },
   {
     id: "demo_3",
@@ -397,7 +397,7 @@ const DEMO_DESSERTS = [
     readyInMinutes: 10,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Italian"],
-    popularityL: 10,
+    aggregateLikes: 10,
   },
   {
     id: "demo_4",
@@ -407,7 +407,7 @@ const DEMO_DESSERTS = [
     readyInMinutes: 15,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Italian"],
-    popularityL: 15,
+    aggregateLikes: 15,
   },
   {
     id: "demo_5",
@@ -417,7 +417,7 @@ const DEMO_DESSERTS = [
     readyInMinutes: 25,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Italian"],
-    popularityL: 25,
+    aggregateLikes: 25,
   },
 ];
 

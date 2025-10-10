@@ -69,9 +69,10 @@
     &__img {
       align-self: center;
       width: 100%;
-      height: auto;
+      height: 15rem;
       border-radius: 1rem;
       margin-bottom: 1rem;
+      object-fit: cover;
     }
 
     &__ingredients li {
@@ -107,9 +108,10 @@
     &__img {
       align-self: center;
       width: 100%;
-      height: auto;
+      height: 15rem;
       border-radius: 1rem;
       margin-bottom: 1rem;
+      object-fit: cover;
     }
 
     &__ingredients li {

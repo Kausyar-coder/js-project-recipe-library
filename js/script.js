@@ -251,7 +251,7 @@ function getCurrentCategory() {
 
 window.addEventListener("DOMContentLoaded", () => {
   seedIfEmpty(LS_COFFEE, DEMO_CAKES);
-  seedIfEmpty(LS_JUICE, DEMO_DESSERTS); // ← сделай отдельный DEMO_DESSERTS для фруктовых
+  seedIfEmpty(LS_JUICE, DEMO_DESSERTS);
 
   console.log("LS_COFFEE after seed:", cacheGet(LS_COFFEE));
   console.log("LS_JUICE after seed:", cacheGet(LS_JUICE));

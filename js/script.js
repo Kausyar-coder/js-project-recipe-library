@@ -250,6 +250,13 @@ function getCurrentCategory() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
+  // опционально ограничить только Netlify-домен:
+  if (location.hostname.endsWith("netlify.app")) {
+    seedIfEmpty(LS_COFFEE, DEMO_CAKES);
+  }
+
+  console.log("LS_COFFEE after seed:", cacheGet(LS_COFFEE)); // проверка
+
   setActiveButton(buttonCoffee);
   mainJuice?.classList.add("hidden");
   mainTea?.classList.add("hidden");
@@ -258,8 +265,9 @@ window.addEventListener("DOMContentLoaded", () => {
   ensureFavoritesLoaded();
   renderFavorites();
 
+  // грузим только активную секцию
   renderCoffeeCards();
-  renderJuiceCards();
+  renderJuiceCards(); // лениво по клику
 });
 
 //Turn on COFFEE container and turn off the others
@@ -301,53 +309,89 @@ buttonFavorites.forEach((btn) => {
 });
 
 /* ==================================
+   SECTION DEMO DEMO DEMO
+   ==================================*/
+
+const DEMO_CAKES = [
+  {
+    id: "demo_1",
+    title: "Tiramisu (demo)",
+    image:
+      "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 30,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Asian"],
+  },
+  {
+    id: "demo_2",
+    title: "Tiramisu (demo)",
+    image:
+      "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 30,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Middle East"],
+  },
+  {
+    id: "demo_3",
+    title: "Tiramisu (demo)",
+    image:
+      "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 30,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Italian"],
+  },
+];
+
+function seedIfEmpty(storageKey, demoArray) {
+  const cur = cacheGet(storageKey);
+  if (!Array.isArray(cur) || cur.length === 0) {
+    cacheSet(storageKey, demoArray);
+  }
+}
+
+/* ==================================
    SECTION RENDER: COFFEE ☕☕☕ (Desserts)
    ==================================*/
+
+// Cache-first render for "Coffee" (cakes)
 async function renderCoffeeCards() {
   if (coffeeRendered) return;
   coffeeRendered = true;
-  containerCoffee && (containerCoffee.innerHTML = "");
+  if (containerCoffee) containerCoffee.innerHTML = "";
 
+  // 1) сразу показываем кэш (включая DEMO_CAKES)
+  const cached = cacheGet(LS_COFFEE);
+  if (Array.isArray(cached) && cached.length) {
+    cached.forEach(addCoffeeCard);
+  }
+
+  // 2) пытаемся обновить из сети (может прийти 402)
   try {
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=coffee&addRecipeInformation=true&number=3&apiKey=003fb0433f9c48348cea44cc791555a4`;
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=coffee&addRecipeInformation=true&number=15&apiKey=003fb0433f9c48348cea44cc791555a4`;
     const data = await fetchJSON(url);
     const arr = data.results || [];
-    if (!arr.length) throw new Error("No coffee results");
-    cacheSet(LS_COFFEE, arr);
-    arr.forEach(addCoffeeCard);
-  } catch (err) {
-    const cached = cacheGet(LS_COFFEE);
-    if (Array.isArray(cached) && cached.length) {
-      cached.forEach(addCoffeeCard);
-      return;
+
+    if (arr.length) {
+      cacheSet(LS_COFFEE, arr);
+
+      // если раньше кэша не было — перерисуем новыми данными
+      if (!cached || !cached.length) {
+        containerCoffee.innerHTML = "";
+        arr.forEach(addCoffeeCard);
+      }
+    } else if (!cached || !cached.length) {
+      showEmptyCoffeeCard();
     }
-
-    const code = String(err?.message || "");
-
-    if (code.startsWith("HTTP_401")) {
-      showEmptyCoffeeCard(
-        containerCoffee,
-        "🔑 Missing API Key",
-        "Please check your API_KEY or use a secure backend proxy."
-      );
-    } else if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
-      showEmptyCoffeeCard(
-        containerCoffee,
-        "⏳ API Limit Reached",
-        "Daily request limit exceeded. Wait for the reset or reduce the number of requests."
-      );
-    } else if (code === "NETWORK") {
-      showEmptyCoffeeCard(
-        containerCoffee,
-        "🌐 Network / CORS Error",
-        "Check your internet connection or CORS / proxy configuration."
-      );
-    } else {
-      showEmptyCoffeeCard(
-        containerCoffee,
-        "😕 Failed to Load",
-        "The service is temporarily unavailable. Please try again later."
-      );
+  } catch (err) {
+    if (!cached || !cached.length) {
+      const code = String(err?.message || "");
+      if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
+        showEmptyCoffeeCard();
+      } else if (code.startsWith("HTTP_401")) {
+        showEmptyCoffeeCard();
+      } else {
+        showEmptyCoffeeCard();
+      }
     }
   }
 
@@ -415,50 +459,51 @@ function showEmptyCoffeeCard() {
 /* ==================================
    SECTION RENDER: JUICE 🍇🍌🍊🍎 (Desserts)
    ================================== */
+// Cache-first render for "Juice" (fruit desserts)
+
+// Cache-first render for "Juice" (fruit desserts)
 async function renderJuiceCards() {
   if (juiceRendered) return;
   juiceRendered = true;
-  containerJuice && (containerJuice.innerHTML = "");
+  if (containerJuice) containerJuice.innerHTML = "";
 
+  // 1) сразу показываем кэш (LS_JUICE)
+  const cached = cacheGet(LS_JUICE);
+  if (Array.isArray(cached) && cached.length) {
+    cached.forEach(addJuiceCard);
+  }
+
+  // 2) потом пробуем сеть (может прийти 402/429)
   try {
-    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=fruit&addRecipeInformation=true&number=3&apiKey=003fb0433f9c48348cea44cc791555a4`;
+    const url = `https://api.spoonacular.com/recipes/complexSearch?query=cake&includeIngredients=fruit&addRecipeInformation=true&number=15&apiKey=003fb0433f9c48348cea44cc791555a4`;
     const data = await fetchJSON(url);
     const arr = data.results || [];
-    if (!arr.length) throw new Error("No dessert results");
-    cacheSet(LS_JUICE, arr);
-    arr.forEach(addJuiceCard);
-  } catch (err) {
-    const cached = cacheGet(LS_JUICE);
-    if (Array.isArray(cached) && cached.length) {
-      cached.forEach(addJuiceCard);
-      return;
+
+    if (arr.length) {
+      cacheSet(LS_JUICE, arr);
+
+      // если кэша не было — перерисуем свежими данными
+      if (!cached || !cached.length) {
+        containerJuice.innerHTML = "";
+        arr.forEach(addJuiceCard);
+      }
+      // если кэш уже был — оставляем как есть, чтобы не мигало
+    } else if (!cached || !cached.length) {
+      // пусто и сети нет — показываем заглушку
+      showEmptyJuiceCard(); // или showEmptyCard(containerJuice, "...", "...")
     }
-    // Расшифровка причин
-    const code = String(err?.message || "");
-    if (code.startsWith("HTTP_401")) {
-      showEmptyJuiceCard(
-        containerJuice,
-        "🔑 Нужен ключ API",
-        "Проверь API_KEY или используй серверный прокси."
-      );
-    } else if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
-      showEmptyJuiceCard(
-        containerJuice,
-        "⏳ Лимит API",
-        "Дневной лимит исчерпан. Подожди суточный реcет или снизь объём запросов."
-      );
-    } else if (code === "NETWORK") {
-      showEmptyJuiceCard(
-        containerJuice,
-        "🌐 Ошибка сети/CORS",
-        "Проверь интернет или настрой прокси (CORS)."
-      );
-    } else {
-      showEmptyJuiceCard(
-        containerJuice,
-        "😕 Не удалось загрузить",
-        "Сервис временно недоступен. Попробуй позже."
-      );
+  } catch (err) {
+    if (!cached || !cached.length) {
+      const code = String(err?.message || "");
+      if (code.startsWith("HTTP_402") || code.startsWith("HTTP_429")) {
+        showEmptyJuiceCard();
+      } else if (code.startsWith("HTTP_401")) {
+        showEmptyJuiceCard();
+      } else if (code === "NETWORK") {
+        showEmptyJuiceCard();
+      } else {
+        showEmptyJuiceCard();
+      }
     }
   }
 

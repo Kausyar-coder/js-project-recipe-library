@@ -250,12 +250,11 @@ function getCurrentCategory() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  // опционально ограничить только Netlify-домен:
-  if (location.hostname.endsWith("netlify.app")) {
-    seedIfEmpty(LS_COFFEE, DEMO_CAKES);
-  }
+  seedIfEmpty(LS_COFFEE, DEMO_CAKES);
+  seedIfEmpty(LS_JUICE, DEMO_DESSERTS); // ← сделай отдельный DEMO_DESSERTS для фруктовых
 
-  console.log("LS_COFFEE after seed:", cacheGet(LS_COFFEE)); // проверка
+  console.log("LS_COFFEE after seed:", cacheGet(LS_COFFEE));
+  console.log("LS_JUICE after seed:", cacheGet(LS_JUICE));
 
   setActiveButton(buttonCoffee);
   mainJuice?.classList.add("hidden");
@@ -265,9 +264,11 @@ window.addEventListener("DOMContentLoaded", () => {
   ensureFavoritesLoaded();
   renderFavorites();
 
-  // грузим только активную секцию
+  // ✅ На старте рендерим только активную секцию (coffee)
   renderCoffeeCards();
-  renderJuiceCards(); // лениво по клику
+
+  // ❌ НЕ вызывать здесь: renderJuiceCards();
+  //    Вызовем лениво при клике на кнопку Juice:
 });
 
 //Turn on COFFEE container and turn off the others
@@ -286,6 +287,8 @@ buttonJuice?.addEventListener("click", () => {
   mainTea?.classList.add("hidden");
   mainFavorites?.classList.add("hidden");
   setActiveButton(buttonJuice);
+
+  renderJuiceCards();
 });
 
 //Turn on TEA container and turn off the others
@@ -315,30 +318,106 @@ buttonFavorites.forEach((btn) => {
 const DEMO_CAKES = [
   {
     id: "demo_1",
-    title: "Tiramisu (demo)",
+    title: "Tiramisu",
     image:
       "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     readyInMinutes: 30,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Asian"],
+    popularityL: 30,
   },
   {
     id: "demo_2",
-    title: "Tiramisu (demo)",
+    title: "Tiramisu",
     image:
-      "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    readyInMinutes: 30,
+      "https://images.unsplash.com/photo-1495147466023-ac5c588e2e94?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
+    readyInMinutes: 20,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
-    cuisines: ["Middle East"],
+    cuisines: ["middle eastern"],
+    popularityL: 20,
   },
   {
     id: "demo_3",
-    title: "Tiramisu (demo)",
+    title: "Tiramisu",
     image:
-      "https://plus.unsplash.com/premium_photo-1713447395823-2e0b40b75a89?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    readyInMinutes: 30,
+      "https://plus.unsplash.com/premium_photo-1667824363471-733bbbca0d0d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
+    readyInMinutes: 10,
     extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
     cuisines: ["Italian"],
+    popularityL: 10,
+  },
+  {
+    id: "demo_4",
+    title: "Tiramisu",
+    image:
+      "https://plus.unsplash.com/premium_photo-1663924211686-677f4114cef1?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1887",
+    readyInMinutes: 15,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Italian"],
+    popularityL: 15,
+  },
+  {
+    id: "demo_5",
+    title: "Tiramisu",
+    image:
+      "https://images.unsplash.com/photo-1476887334197-56adbf254e1a?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=987",
+    readyInMinutes: 25,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Italian"],
+    popularityL: 25,
+  },
+];
+
+const DEMO_DESSERTS = [
+  {
+    id: "demo_1",
+    title: "Fruit desser",
+    image:
+      "https://images.unsplash.com/photo-1591626505027-a4992d84d28b?q=80&w=1035&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 30,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Asian"],
+    popularityL: 30,
+  },
+  {
+    id: "demo_2",
+    title: "Fruit desser",
+    image:
+      "https://images.unsplash.com/photo-1750680230074-a2046d59ba02?q=80&w=927&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 20,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["middle eastern"],
+    popularityL: 20,
+  },
+  {
+    id: "demo_3",
+    title: "Fruit desser",
+    image:
+      "https://plus.unsplash.com/premium_photo-1661266841331-e2169199de65?q=80&w=1734&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 10,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Italian"],
+    popularityL: 10,
+  },
+  {
+    id: "demo_4",
+    title: "Fruit desser",
+    image:
+      "https://plus.unsplash.com/premium_photo-1714662390686-eacb5268b41c?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 15,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Italian"],
+    popularityL: 15,
+  },
+  {
+    id: "demo_5",
+    title: "Fruit dessert",
+    image:
+      "https://plus.unsplash.com/premium_photo-1714146022660-d9c01e9e6c8c?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    readyInMinutes: 25,
+    extendedIngredients: [{ name: "mascarpone" }, { name: "espresso" }],
+    cuisines: ["Italian"],
+    popularityL: 25,
   },
 ];
 

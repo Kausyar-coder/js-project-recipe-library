@@ -5,9 +5,9 @@
 ---------------------------------------
 */
 
-/* ==========================
-   DOM REFERENCES / BUTTONS
-   ========================== */
+/* ===============
+   DOM REFERENCES / 
+   =============== */
 const filterItems = document.querySelectorAll(".filter__item");
 
 const mainCoffee = document.querySelector(".main-coffee");
@@ -29,10 +29,6 @@ const buttons = [buttonCoffee, buttonJuice, buttonTea, ...buttonFavorites];
 /* ==========================
    GLOBALS / CONFIG
    ========================== */
-// IMPORTANT: do NOT keep your real key in the browser in production.
-// Point to a secure backend proxy that injects the Spoonacular key server-side.
-const SPOON_BASE = "https://api.spoonacular.com";
-const API_KEY = "YOUR_BACKEND_PROXY_KEY"; // replace with your proxy if you have one
 
 // LocalStorage keys
 const LS_COFFEE = "coffeeData";
@@ -46,14 +42,22 @@ let juiceRendered = false;
 // Favorites state
 let favorites = [];
 
-/* ==========================
-   UTILITIES
-   ========================== */
+/* =========================================================
+   SECTION SECTION SECTION UTILITIES SECTION SECTION SECTION
+   ========================================================= */
+
+/* ==================================
+   ⁉️ Sets "active" visual state on the clicked top-menu button
+   ================================== */
 function setActiveButton(activeBtn) {
   buttons.filter(Boolean).forEach((btn) => btn.classList.remove("active"));
   if (activeBtn) activeBtn.classList.add("active");
 }
 
+/* ==================================
+   Keeps only one specific card in the container,
+   removes all others (used by Random function)
+   ================================== */
 function keepOnlyThisCard(container, cardEl) {
   container
     .querySelectorAll(
@@ -62,10 +66,13 @@ function keepOnlyThisCard(container, cardEl) {
     .forEach((el) => {
       if (el !== cardEl) el.remove();
     });
-  // На всякий случай уберём inline-скрытие
   cardEl.style.display = "";
 }
 
+/* ==================================
+   Reads and returns array from localStorage by key
+   (returns empty array if key not found or invalid)
+   ================================== */
 function getCacheArray(key) {
   try {
     const arr = JSON.parse(localStorage.getItem(key) || "[]");
@@ -75,12 +82,20 @@ function getCacheArray(key) {
   }
 }
 
+/* ==================================
+   Picks a random element from array,
+   excluding one with a specific id (used in Random)
+   ================================== */
 function pickRandomExcluding(arr, excludeId) {
   const pool = arr.filter((r) => String(r?.id) !== String(excludeId));
   if (!pool.length) return null;
   return pool[Math.floor(Math.random() * pool.length)];
 }
 
+/* ==================================
+   Detects cuisine based on API cuisines, title, or ingredients.
+   Supports only: Italian, Asian, Middle Eastern, or Other.
+   ================================== */
 function detectCuisine3({
   cuisines = [],
   title = "",
@@ -127,6 +142,10 @@ function detectCuisine3({
   return "other";
 }
 
+/* ==================================
+   Converts internal cuisine key to label for UI
+   ================================== */
+
 function cuisineLabel3(key) {
   switch (key) {
     case "italian":
@@ -140,11 +159,18 @@ function cuisineLabel3(key) {
   }
 }
 
+/* ==================================
+   ⁉️ Converts any value to number safely (NaN → 0)
+   ================================== */
+
 function toNum(v) {
   const n = Number(v);
   return Number.isFinite(n) ? n : 0;
 }
 
+/* ==================================
+   ⁉️ Fetches JSON and throws on HTTP error
+   ================================== */
 function fetchJSON(url) {
   return fetch(url).then((res) => {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -152,10 +178,16 @@ function fetchJSON(url) {
   });
 }
 
+/* ==================================
+   ⁉️ Saves value to localStorage as JSON string
+   ================================== */
 function cacheSet(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
 
+/* ==================================
+   ⁉️ Loads value from localStorage and parses JSON
+   ================================== */
 function cacheGet(key) {
   try {
     return JSON.parse(localStorage.getItem(key) || "null");
@@ -164,6 +196,9 @@ function cacheGet(key) {
   }
 }
 
+/* ==================================
+   Loads favorites array from localStorage (safe)
+   ================================== */
 function ensureFavoritesLoaded() {
   try {
     const data = JSON.parse(localStorage.getItem(LS_FAVORITES) || "[]");
@@ -173,6 +208,9 @@ function ensureFavoritesLoaded() {
   }
 }
 
+/* ==================================
+   Shows "No matches" banner if all cards hidden
+   ================================== */
 function ensureNoMatchBanner(container) {
   const cards = Array.from(
     container.querySelectorAll(".cards__coffee-card, .cards__juice-card")
@@ -199,6 +237,10 @@ function ensureNoMatchBanner(container) {
   }
 }
 
+/* =======================================================
+    SECTION SECTION SECTION STARTUP SECTION SECTION SECTION
+   ======================================================= */
+
 // Which section is visible right now?
 function getCurrentCategory() {
   if (mainCoffee && !mainCoffee.classList.contains("hidden")) return "coffee";
@@ -207,9 +249,6 @@ function getCurrentCategory() {
   return "coffee";
 }
 
-/* ==========================
-   STARTUP
-   ========================== */
 window.addEventListener("DOMContentLoaded", () => {
   setActiveButton(buttonCoffee);
   mainJuice?.classList.add("hidden");
@@ -223,6 +262,7 @@ window.addEventListener("DOMContentLoaded", () => {
   renderJuiceCards();
 });
 
+//Turn on COFFEE container and turn off the others
 buttonCoffee?.addEventListener("click", () => {
   mainCoffee?.classList.remove("hidden");
   mainJuice?.classList.add("hidden");
@@ -231,6 +271,7 @@ buttonCoffee?.addEventListener("click", () => {
   setActiveButton(buttonCoffee);
 });
 
+//Turn on JUICE container and turn off the others
 buttonJuice?.addEventListener("click", () => {
   mainCoffee?.classList.add("hidden");
   mainJuice?.classList.remove("hidden");
@@ -239,6 +280,7 @@ buttonJuice?.addEventListener("click", () => {
   setActiveButton(buttonJuice);
 });
 
+//Turn on TEA container and turn off the others
 buttonTea?.addEventListener("click", () => {
   mainCoffee?.classList.add("hidden");
   mainJuice?.classList.add("hidden");
@@ -247,6 +289,7 @@ buttonTea?.addEventListener("click", () => {
   setActiveButton(buttonTea);
 });
 
+//Turn on FAVORITES container and turn off the others
 buttonFavorites.forEach((btn) => {
   btn.addEventListener("click", () => {
     mainCoffee?.classList.add("hidden");
@@ -257,9 +300,9 @@ buttonFavorites.forEach((btn) => {
   });
 });
 
-/* ==========================
-   RENDER: COFFEE (Desserts)
-   ========================== */
+/* ==================================
+   SECTION RENDER: COFFEE ☕☕☕ (Desserts)
+   ==================================*/
 async function renderCoffeeCards() {
   if (coffeeRendered) return;
   coffeeRendered = true;
@@ -279,7 +322,6 @@ async function renderCoffeeCards() {
       return;
     }
 
-    // Error handling (translated from Russian)
     const code = String(err?.message || "");
 
     if (code.startsWith("HTTP_401")) {
@@ -370,9 +412,9 @@ function showEmptyCoffeeCard() {
   containerCoffee?.appendChild(emptyCard);
 }
 
-/* ==========================
-   RENDER: JUICE (Desserts)
-   ========================== */
+/* ==================================
+   SECTION RENDER: JUICE 🍇🍌🍊🍎 (Desserts)
+   ================================== */
 async function renderJuiceCards() {
   if (juiceRendered) return;
   juiceRendered = true;
@@ -481,9 +523,9 @@ function showEmptyJuiceCard() {
   containerJuice?.appendChild(emptyCard);
 }
 
-/* ===================================
-   FAVORITES (save / render / toggle)
-   =================================== */
+/* ==========================================
+   SECTION FAVORITES ❤️❤️❤️(save / render / toggle)
+   ========================================== */
 function toggleFavoriteCard(cardEl) {
   const recipeId = String(cardEl.dataset.id || "");
   if (!recipeId) {
@@ -530,9 +572,9 @@ function renderFavorites() {
   });
 }
 
-/* ==========================================
-   FILTERS / SORTING (single .filters block)
-   ========================================== */
+/* ====================================================================
+   SECTION FILTERS / SORTING (single .filters block) BUTTON BUTTON BUTTON
+   ==================================================================== */
 let speedDescending = true;
 let popularityDescending = true;
 
@@ -627,9 +669,9 @@ function sortCards(container, field, descending) {
   cards.forEach((card) => container.appendChild(card));
 }
 
-/* ======================================
-   RANDOM PICK (real random + fallbacks)
-   ====================================== */
+/* ==================================================================
+  SECTION RANDOM PICK (real random + fallbacks) BUTTON BUTTON BUTTON
+   ================================================================== */
 function getCardById(container, id) {
   return (
     container?.querySelector(`[data-id="${CSS.escape(String(id))}"]`) || null
